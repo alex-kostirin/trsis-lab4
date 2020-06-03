@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-nav-list>
+    <h1 style="text-align: center">Shopping lists 🛒</h1>
+    <mat-list-item *ngFor="let list of lists">
+      <a *ngIf="!list._edit" [routerLink]="'/lists/'+list.id" matLine>
+        {{ list.name }}
+      </a>
+      <a *ngIf="list._edit" matLine>
+        <mat-form-field>
+          <input id="list-name-input_{{list.id ? 'update': 'create'}}_{{list.id ? list.id:list._edit_id}}" matInput
+                 autofocus (change)="onChange($event)" value="{{list.name}}">
+        </mat-form-field>
+      </a>
+      <button *ngIf="!list._edit" mat-icon-button (click)="edit(list)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button *ngIf="list._edit" mat-icon-button (click)="list.id ? update(list): create(list)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-icon-button (click)="delete(list)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <a matLine></a>
+      <button mat-icon-button (click)="new()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-card>

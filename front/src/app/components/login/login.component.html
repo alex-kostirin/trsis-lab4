@@ -1,0 +1,12 @@
+<mat-card>
+    <mat-form-field class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput required value="{{username}}" (change)="onUsernameChange($event)">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput required type="password" value="{{password}}" (change)="onPasswordChange($event)">
+    </mat-form-field>
+    <button [disabled]="username.length == 0 || password.length == 0" mat-raised-button color="primary" (click)="login()">Login</button>
+</mat-card>

@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-list>
+    <h1 *ngIf="list" style="text-align: center">{{list.name}}</h1>
+    <mat-list-item *ngFor="let item of items">
+      <p [ngClass]="{'bought' : item.bought}" *ngIf="!item._edit" matLine>
+        {{ item.name }} ({{item.count}})
+      </p>
+      <p *ngIf="item._edit" matLine>
+        <mat-form-field>
+          <input type="text" id="item-name-input_{{item.id ? 'update': 'create'}}_{{item.id ? item.id:item._edit_id}}"
+                 matInput
+                 (change)="onNameChange($event)" value="{{item.name}}"
+          >
+        </mat-form-field>
+      </p>
+      <p *ngIf="item._edit" matLine>
+        <mat-form-field>
+          <input type="number"
+                 id="item-count-input_{{item.id ? 'update': 'create'}}_{{item.id ? item.id:item._edit_id}}" matInput
+                 (change)="onCountChange($event)" value="{{item.count}}">
+        </mat-form-field>
+      </p>
+      <button *ngIf="!item._edit && !item.bought" mat-icon-button (click)="edit(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button [disabled]="!isValidItem(item)" *ngIf="item._edit" mat-icon-button (click)="item.id ? update(item): create(item)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button *ngIf="!item._edit && !item.bought" mat-icon-button (click)="done(item)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button mat-icon-button (click)="delete(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <a matLine></a>
+      <button mat-icon-button (click)="new()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
